@@ -1,1 +1,29 @@
-a
+{
+  "updatedAt": "2025-11-30T18:55:00Z",
+  "files": [
+    {
+      "id": "bgmi-obb-41-skins",
+      "section": "BGMI OBB",
+      "name": "BGMI Skin OBB – Version 4.1",
+      "description": "Latest BGMI skin OBB for 4.1 update with weapon, outfit and lobby skins. Use only on BGMI 4.1.",
+      "downloadUrl": "https://www.mediafire.com/file/xxxxxxxxxx/BGMI_Skin_OBB_4.1.zip/file",
+      "password": "https://short.url/justpaste-bgmi-skin-41"
+    },
+    {
+      "id": "pubg-pak-40-aimbot",
+      "section": "PUBG PAK",
+      "name": "PUBG Aimbot PAK – v4.0",
+      "description": "Aimbot + ESP PAK for PUBG Global v4.0. Read full instructions on the password page before use.",
+      "downloadUrl": "https://www.mediafire.com/file/yyyyyyyyyy/PUBG_Aimbot_PAK_v4.0.zip/file",
+      "password": "https://short.url/justpaste-pubg-pak-40"
+    },
+    {
+      "id": "bgmi-esp-config-41",
+      "section": "BGMI ESP CONFIG",
+      "name": "BGMI ESP Config – 4.1",
+      "description": "Config files for ESP setup on BGMI 4.1. Includes recommended sensitivity and graphic settings.",
+      "downloadUrl": "https://www.mediafire.com/file/zzzzzzzzzz/BGMI_ESP_Config_4.1.zip/file",
+      "password": "https://short.url/justpaste-bgmi-esp-41"
+    }
+  ]
+}
