@@ -1,0 +1,27 @@
+# .github/workflows/notify-update.yml
+name: Send FCM Notification on app.json Update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'app.json'
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send FCM Notification
+        run: |
+          curl -X POST https://fcm.googleapis.com/fcm/send \
+            -H "Authorization: key=${{ secrets.FCM_SERVER_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "to": "/topics/darkside_updates",
+              "notification": {
+                "title": "New Files Added!",
+                "body": "Check the app for new BGMI/PUBG mods",
+                "click_action": "FLUTTER_NOTIFICATION_CLICK"
+              }
+            }'
