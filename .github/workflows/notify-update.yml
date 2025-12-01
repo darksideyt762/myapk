@@ -12,6 +12,9 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait 3 minutes
+        run: sleep 180
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -40,8 +43,8 @@ jobs:
           credentials.refresh(Request())
           access_token = credentials.token
 
-          # Your Firebase project ID (replace with yours)
-          project_id = "my-tool-key"  # Change this to your actual project ID
+          # Your Firebase project ID
+          project_id = "my-tool-key"  # Change to your actual project ID if different
 
           url = f"https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
           headers = {
