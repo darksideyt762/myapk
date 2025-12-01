@@ -12,16 +12,56 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install google-auth requests
+
       - name: Send FCM Notification
+        env:
+          FIREBASE_CREDS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
-          curl -X POST https://fcm.googleapis.com/fcm/send \
-            -H "Authorization: key=${{ secrets.FCM_SERVER_KEY }}" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "to": "/topics/darkside_updates",
-              "notification": {
-                "title": "New Files Added!",
-                "body": "Check the app for new BGMI/PUBG mods",
-                "click_action": "FLUTTER_NOTIFICATION_CLICK"
+          python - <<'EOF'
+          import json
+          import os
+          import requests
+          from google.auth.transport.requests import Request
+          from google.oauth2 import service_account
+
+          # Load service account from secret
+          creds_json = json.loads(os.environ["FIREBASE_CREDS"])
+          credentials = service_account.Credentials.from_service_account_info(
+              creds_json,
+              scopes=["https://www.googleapis.com/auth/firebase.messaging"]
+          )
+          credentials.refresh(Request())
+          access_token = credentials.token
+
+          # Your Firebase project ID (replace with yours)
+          project_id = "my-tool-key"  # Change this to your actual project ID
+
+          url = f"https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
+          headers = {
+              "Authorization": f"Bearer {access_token}",
+              "Content-Type": "application/json"
+          }
+
+          payload = {
+              "message": {
+                  "topic": "darkside_updates",
+                  "notification": {
+                      "title": "New Files Added!",
+                      "body": "Check Darkside Storage for new BGMI/PUBG mods"
+                  }
               }
-            }'
+          }
+
+          response = requests.post(url, headers=headers, json=payload)
+          if response.status_code == 200:
+              print("Notification sent successfully!")
+          else:
+              print(f"Failed: {response.status_code} - {response.text}")
+          EOF
